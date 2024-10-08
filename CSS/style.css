@@ -1,0 +1,51 @@
+a {
+  text-decoration: none;
+}
+.bi {
+  cursor: pointer;
+}
+.active {
+  background-color: aqua;
+  border-radius: 50%;
+}
+
+.image-profile {
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  background-color: aquamarine;
+}
+
+.icon-location {
+  color: white;
+  animation: changeColorIcon 12s infinite steps(1);
+}
+
+@keyframes changeColorIcon {
+  0%,
+  20%,
+  40%,
+  60%,
+  80% {
+    color: #fff;
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90%,
+  100% {
+    color: red;
+  }
+}
+
+/* .Temperature {
+  font-size: 4.375rem;
+} */
+.image-temperature img {
+  width: 100px;
+}
+
+.card {
+  flex: 1 0 100%;
+}
