@@ -1,1 +1,17 @@
-
+@keyframes changeColorIcon {
+  0%,
+  20%,
+  40%,
+  60%,
+  80% {
+    color: #fff;
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90%,
+  100% {
+    color: red;
+  }
+}
