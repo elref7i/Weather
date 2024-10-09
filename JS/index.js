@@ -1,6 +1,10 @@
 //* HTML element
 let allWeather = document.querySelector('.all-weather');
 let locationNow = document.querySelector('.location-now');
+let modeIcons = document.querySelectorAll('.mode');
+let parenModeIcons = document.querySelectorAll('.icon-mode');
+console.log(modeIcons);
+
 //* App Variables
 let spanCity = document.createElement('span');
 spanCity.classList.add('fs-6', 'location-city');
@@ -105,6 +109,16 @@ function displayforceObject(obj) {
     allWeather.innerHTML += cardForcastday;
   }
 }
+
+for (let i = 0; i < modeIcons.length; i++) {
+  modeIcons[i].addEventListener('click', function (e) {
+    e.stopPropagation();
+    let classActiveMode = document.querySelector('.icon-mode .active');
+    classActiveMode.classList.remove('active');
+    e.target.parentElement.classList.add('active');
+  });
+}
+
 //* Events
 //* https://api.weatherapi.com/v1/current.json?key=3f2e331856f84a428f5191703240710&q=cairo
 //*https://api.weatherapi.com/v1/forecast.json?key=3f2e331856f84a428f5191703240710&q&q=cairo=07112&days=7
