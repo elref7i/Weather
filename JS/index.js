@@ -4,16 +4,21 @@ let locationNow = document.querySelector('location-now');
 //* App Variables
 let spanCity = document.createElement('span');
 spanCity.classList.add('fs-6', 'location-city');
+//*${obj.location.country}, ${obj.location.region}}
+spanCity.textContent = `refai`;
+// locationNow.after(spanCity);
+console.log(spanCity);
 //* Functions
 async function getCureentDay(country) {
   let response = await fetch(
-    `https://api.weatherapi.com/v1/current.json?key=3f2e331856f84a428f5191703240710&q=${country}`
+    `https://api.weatherapi.com/v1/forecast.json?key=3f2e331856f84a428f5191703240710&q=${country.toLowerCase()}=07112&days=7`
   );
-  let currentWeather = await response.json();
-  dispalyCureenweather(currentWeather);
-  console.log(currentWeather);
+  let data = await response.json();
+  dispalyCureenweather(data);
+  displayforceObject(data);
+  console.log(data);
 }
-getCureentDay('lodon');
+getCureentDay('LONDON'.toLowerCase());
 
 function dispalyCureenweather(obj) {
   const date = new Date(obj.current.last_updated); // Your input date
@@ -63,11 +68,43 @@ function dispalyCureenweather(obj) {
             </div>`;
 
   allWeather.innerHTML += currentDayWeather;
-  locationNow.append(spanCity);
-  spanCity.textContent(`${obj.location.country}, ${obj.location.region}}`);
 
   // getDay() returns a number between 0 (Sunday) and 6 (Saturday)
   // Output: Wednesday
+}
+function displayforceObject(obj) {
+  for (let i = 1; i <= 3; i++) {
+    const date = new Date(obj.forecast.forecastday[i].date); // Your input date
+    const days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ];
+    const dayName = days[date.getDay()];
+    console.log(obj.forecast.forecastday[i]);
+    let cardForcastday = `  <div class="col-md-6 col-lg-3 text-center">
+              <div class="card bg-dark text-white shadow-lg p-2 h-100">
+                <div class="title-weather  p-2">
+                  <h5 class="day-current text-capitalize">${dayName}</h5>
+                </div>
+                <div class="card-body bg-black p-3">
+                  <div class="data-temp">
+                    <div class="image-temperature">
+                      <img src="${obj.forecast.forecastday[i].day.condition.icon}" class="mb-2" alt="">
+                    </div>
+                    <h4 class="maxtemp mb-2">${obj.forecast.forecastday[i].day.maxtemp_c}<sup class="text-danger px-1">o</sup>C</h4>
+                    <h5 class="min-temp h6 mb-3">${obj.forecast.forecastday[i].day.mintemp_c}<sup class="ps-1 text-danger">o</sup></h5>
+                  </div>
+                  <h5 class="text-primary ">${obj.forecast.forecastday[i].day.condition.text}</h5>
+                </div>
+              </div>
+            </div>`;
+    allWeather.innerHTML += cardForcastday;
+  }
 }
 //* Events
 //* https://api.weatherapi.com/v1/current.json?key=3f2e331856f84a428f5191703240710&q=cairo
