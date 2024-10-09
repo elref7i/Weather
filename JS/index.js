@@ -1,13 +1,10 @@
 //* HTML element
 let allWeather = document.querySelector('.all-weather');
-let locationNow = document.querySelector('location-now');
+let locationNow = document.querySelector('.location-now');
 //* App Variables
 let spanCity = document.createElement('span');
 spanCity.classList.add('fs-6', 'location-city');
-//*${obj.location.country}, ${obj.location.region}}
-spanCity.textContent = `refai`;
-// locationNow.after(spanCity);
-console.log(spanCity);
+// //*
 //* Functions
 async function getCureentDay(country) {
   let response = await fetch(
@@ -18,7 +15,7 @@ async function getCureentDay(country) {
   displayforceObject(data);
   console.log(data);
 }
-getCureentDay('LONDON'.toLowerCase());
+getCureentDay('lodon'.toLowerCase());
 
 function dispalyCureenweather(obj) {
   const date = new Date(obj.current.last_updated); // Your input date
@@ -68,6 +65,8 @@ function dispalyCureenweather(obj) {
             </div>`;
 
   allWeather.innerHTML += currentDayWeather;
+  spanCity.textContent = `${obj.location.country}, ${obj.location.region}`;
+  locationNow.appendChild(spanCity);
 
   // getDay() returns a number between 0 (Sunday) and 6 (Saturday)
   // Output: Wednesday
