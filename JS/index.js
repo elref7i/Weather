@@ -1,26 +1,40 @@
+'use strict';
 //* HTML element
 let allWeather = document.querySelector('.all-weather');
 let locationNow = document.querySelector('.location-now');
+let currentTime = document.querySelector('.time-now');
 let modeIcons = document.querySelectorAll('.mode');
 let parenModeIcons = document.querySelectorAll('.icon-mode');
-console.log(modeIcons);
+let allTextWite = document.querySelectorAll('.text-white');
+let allBgdark = document.querySelectorAll('.bg-dark');
+let allBgBlack = document.querySelectorAll('.bg-black');
+console.log(allBgBlack);
 
 //* App Variables
 let spanCity = document.createElement('span');
+let curTime = document.createElement('p');
+
 spanCity.classList.add('fs-6', 'location-city');
+curTime.classList.add('fs-3', 'location-city', 'm-0', 'fw-bold');
 // //*
 //* Functions
 async function getCureentDay(country) {
   let response = await fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=3f2e331856f84a428f5191703240710&q=${country.toLowerCase()}=07112&days=7`
+    `https://api.weatherapi.com/v1/forecast.json?key=3f2e331856f84a428f5191703240710&q=${country}=07112&days=7`
   );
   let data = await response.json();
   dispalyCureenweather(data);
   displayforceObject(data);
   console.log(data);
 }
-getCureentDay('lodon'.toLowerCase());
+function transformFirstChar(str) {
+  let nameCountry = str.charAt(0).toUpperCase() + str.slice(1, str.length);
+  return nameCountry;
+}
+console.log();
+getCureentDay(transformFirstChar('cairo'));
 
+console.log();
 function dispalyCureenweather(obj) {
   const date = new Date(obj.current.last_updated); // Your input date
   const days = [
@@ -32,8 +46,12 @@ function dispalyCureenweather(obj) {
     'Friday',
     'Saturday',
   ];
+  const time = new Date();
   const dayOfMonth = date.getDate();
   const dayName = days[date.getDay()];
+  const hours = time.getHours();
+  const minutes = time.getMinutes();
+  const seconds = time.getSeconds();
   let currentDayWeather = `<div class="col-md-6 col-lg-3 data-current-day">
               <div class="card bg-dark text-white shadow-lg p-2">
                 <div class="title-weather d-flex justify-content-between align-items-center p-2">
@@ -70,7 +88,9 @@ function dispalyCureenweather(obj) {
 
   allWeather.innerHTML += currentDayWeather;
   spanCity.textContent = `${obj.location.country}, ${obj.location.region}`;
+  curTime.textContent = `${hours}:${minutes}:${seconds}`;
   locationNow.appendChild(spanCity);
+  currentTime.appendChild(curTime);
 
   // getDay() returns a number between 0 (Sunday) and 6 (Saturday)
   // Output: Wednesday
@@ -109,13 +129,23 @@ function displayforceObject(obj) {
     allWeather.innerHTML += cardForcastday;
   }
 }
-
+// *** function changeColor(ele, currentClass, repalceClass) {
+//   for (let i = 0; i < ele.length; i++) {
+//     ele[i].classList.replace(`${currentClass}`, `${repalceClass}`);
+//   }
+// }
 for (let i = 0; i < modeIcons.length; i++) {
   modeIcons[i].addEventListener('click', function (e) {
     e.stopPropagation();
     let classActiveMode = document.querySelector('.icon-mode .active');
     classActiveMode.classList.remove('active');
     e.target.parentElement.classList.add('active');
+    // console.log(e.target.getAttribute('data-light-mode'));
+    if (e.target.getAttribute('data-light-mode')) {
+      document.body.classList.remove('bg-black');
+    } else {
+      document.body.classList.add('bg-black');
+    }
   });
 }
 

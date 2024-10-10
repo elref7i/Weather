@@ -20,14 +20,14 @@
   <title>Weather</title>
 </head>
 
-<body>
+<body class="bg-black">
 
-  <div class="min-vh-100 bg-black">
+  <div class="min-vh-100">
     <nav class="nav py-3">
       <div class="container">
         <div class="row gy-3">
           <h1 class="col-6 col-lg-3">
-            <a class="navbar-brand fs-2  text-white" href="#">Weather</a>
+            <a class="navbar-brand fs-2 text-white" href="#">Weather</a>
           </h1>
           <div
             class="col-12 order-1 order-lg-0  col-lg-6 d-flex justify-content-around align-items-center gap-3  flex-grow-1">
@@ -44,8 +44,8 @@
               </li>
             </ul>
             <form class="flex-grow-1">
-              <input class="form-control w-fit  me-2 rounded-pill bg-dark border-0 text-white" type="search"
-                placeholder="Search" aria-label="Search">
+              <input class="search | form-control w-fit  me-2 rounded-pill bg-dark border-0 text-white" type="search"
+                placeholder="Search...." aria-label="Search">
             </form>
           </div>
           <div class="col-6 col-lg-3 d-flex justify-content-end">
@@ -53,10 +53,10 @@
               <div
                 class="icon-mode d-flex align-items-center  justify-content-end  gap-2  rounded-pill text-black bg-dark">
                 <div class="parent-icon active p-1 d-flex justify-content-center align-items-center" role="button">
-                  <i class="mode fa-solid fa-moon fs-5"></i>
+                  <i class="mode fa-solid fa-moon fs-5" data-dark-mode="dark"></i>
                 </div>
                 <div class="parent-icon p-1 d-flex  justify-content-center align-items-center" role="button">
-                  <i class="mode fa-solid fa-sun fs-5"></i>
+                  <i class="mode fa-solid fa-sun fs-5" data-light-mode="light"></i>
                 </div>
               </div>
               <div class="image-profile ms-3 rounded-circle">
@@ -67,19 +67,23 @@
         </div>
       </div>
     </nav>
-    <main class="py-5">
+    <main class="py-3">
       <section>
         <div class="container">
+          <div class="d-flex flex-column justify-content-between gap-5 align-items-center py-3 mb-5 ">
+            <div class="time-now bg-dark p-5 text-white d-flex justify-content-center align-items-center">
+            </div>
+          </div>
           <div class="row align-items-start all-weather gx-0 gx-md-3 gy-3">
           </div>
         </div>
       </section>
     </main>
-    <footer class="bg-dark py-5 ">
+    <footer class="bg-dark py-4 ">
       <section>
         <div class="container">
           <div class="row py-3 align-items-center">
-            <div class="col-md-12 col-lg-8 data-current-dat mb-md-3">
+            <div class="col-md-12 col-lg-8 data-current-dat mb-3 mb-lg-0">
               <form action="">
                 <input type="email" placeholder="Enter your email to subscribe ...."
                   class="w-100 text-white bg-black rounded-pill p-3 border-0">
