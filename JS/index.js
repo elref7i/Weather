@@ -5,10 +5,6 @@ let locationNow = document.querySelector('.location-now');
 let currentTime = document.querySelector('.time-now');
 let modeIcons = document.querySelectorAll('.mode');
 let parenModeIcons = document.querySelectorAll('.icon-mode');
-let allTextWite = document.querySelectorAll('.text-white');
-let allBgdark = document.querySelectorAll('.bg-dark');
-let allBgBlack = document.querySelectorAll('.bg-black');
-console.log(allBgBlack);
 
 //* App Variables
 let spanCity = document.createElement('span');
@@ -140,12 +136,6 @@ for (let i = 0; i < modeIcons.length; i++) {
     let classActiveMode = document.querySelector('.icon-mode .active');
     classActiveMode.classList.remove('active');
     e.target.parentElement.classList.add('active');
-    // console.log(e.target.getAttribute('data-light-mode'));
-    if (e.target.getAttribute('data-light-mode')) {
-      document.body.classList.remove('bg-black');
-    } else {
-      document.body.classList.add('bg-black');
-    }
   });
 }
 
