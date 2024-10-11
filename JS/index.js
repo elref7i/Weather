@@ -30,7 +30,7 @@ function transformFirstChar(str) {
 getCureentDay(transformFirstChar('cairo'));
 function dispalyDataWeather(obj) {
   allWeather.innerHTML = '';
-  const apiDate = obj.current.last_updated;
+  const apiDate = obj.location.localtime;
 
   // تحويل السلسلة النصية إلى كائن تاريخ
   const date = new Date(apiDate);
