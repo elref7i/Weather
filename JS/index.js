@@ -30,7 +30,12 @@ function transformFirstChar(str) {
 getCureentDay(transformFirstChar('cairo'));
 function dispalyDataWeather(obj) {
   allWeather.innerHTML = '';
-  const date = new Date(obj.current.last_updated); // Your input date
+  const apiDate = obj.current.last_updated;
+
+  // تحويل السلسلة النصية إلى كائن تاريخ
+  const date = new Date(apiDate);
+
+  // مصفوفة تحتوي على أسماء أيام الأسبوع
   const days = [
     'Sunday',
     'Monday',
@@ -40,12 +45,16 @@ function dispalyDataWeather(obj) {
     'Friday',
     'Saturday',
   ];
-  const time = new Date();
-  const dayOfMonth = date.getDate();
+  const dayOfMonth = date.getDay();
   const dayName = days[date.getDay()];
-  const hours = time.getHours();
-  const minutes = time.getMinutes();
-  const seconds = time.getSeconds();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  // console.log(dayName);
+  // console.log(dayOfMonth);
+  // console.log(hours);
+  // console.log(minutes);
+  // console.log(seconds);
+
   let currentDayWeather = `<div class="col-md-6 col-lg-3 data-current-day">
               <div class="card bg-dark text-white shadow-lg p-2">
                 <div class="title-weather d-flex justify-content-between align-items-center p-2">
@@ -80,10 +89,6 @@ function dispalyDataWeather(obj) {
               </div>
             </div>`;
   allWeather.innerHTML += currentDayWeather;
-  spanCity.textContent = `${obj.location.country}, ${obj.location.region}`;
-  curTime.textContent = `${hours}:${minutes}:${seconds}`;
-  locationNow.appendChild(spanCity);
-  currentTime.appendChild(curTime);
 
   for (let i = 1; i <= 3; i++) {
     const date = new Date(obj.forecast.forecastday[i].date); // Your input date
@@ -97,7 +102,6 @@ function dispalyDataWeather(obj) {
       'Saturday',
     ];
     const dayName = days[date.getDay()];
-    console.log(obj.forecast.forecastday[i]);
     let cardForcastday = `  <div class="col-md-6 col-lg-3 text-center">
               <div class="card bg-dark text-white shadow-lg p-2 h-100">
                 <div class="title-weather  p-2">
@@ -117,16 +121,23 @@ function dispalyDataWeather(obj) {
             </div>`;
     allWeather.innerHTML += cardForcastday;
   }
-
+  spanCity.textContent = `${obj.location.country}, ${obj.location.region}`;
+  curTime.textContent = `${hours}:${minutes}`;
+  locationNow.appendChild(spanCity);
+  currentTime.appendChild(curTime);
   // getDay() returns a number between 0 (Sunday) and 6 (Saturday)
   // Output: Wednesday
 }
 
-inputSearch.addEventListener('input', function () {
-  getCureentDay(transformFirstChar(inputSearch.value));
-  if (inputSearch.value === '') {
-    getCureentDay(transformFirstChar('cairo'));
+inputSearch.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    getCureentDay(transformFirstChar(inputSearch.value || 'cairo'));
+    inputSearch.value = '';
+    e.preventDefault();
   }
+});
+inputSearch.addEventListener('input', function () {
+  getCureentDay(transformFirstChar(inputSearch.value || 'cairo'));
 });
 
 // *** function changeColor(ele, currentClass, repalceClass) {
@@ -134,14 +145,14 @@ inputSearch.addEventListener('input', function () {
 //     ele[i].classList.replace(`${currentClass}`, `${repalceClass}`);
 //   }
 // }
-for (let i = 0; i < modeIcons.length; i++) {
-  modeIcons[i].addEventListener('click', function (e) {
-    e.stopPropagation();
-    let classActiveMode = document.querySelector('.icon-mode .active');
-    classActiveMode.classList.remove('active');
-    e.target.parentElement.classList.add('active');
-  });
-}
+// for (let i = 0; i < modeIcons.length; i++) {
+//   modeIcons[i].addEventListener('click', function (e) {
+//     e.stopPropagation();
+//     let classActiveMode = document.querySelector('.icon-mode .active');
+//     classActiveMode.classList.remove('active');
+//     e.target.parentElement.classList.add('active');
+//   });
+// }
 
 //* Events
 //* https://api.weatherapi.com/v1/current.json?key=3f2e331856f84a428f5191703240710&q=cairo
