@@ -4,10 +4,7 @@ a {
 .bi {
   cursor: pointer;
 }
-.active {
-  background-color: rgb(246, 250, 250);
-  border-radius: 50%;
-}
+
 .w-fit {
   width: fit-content;
 }

@@ -4,15 +4,17 @@ let allWeather = document.querySelector('.all-weather');
 let inputSearch = document.querySelector('.search');
 let locationNow = document.querySelector('.location-now');
 let currentTime = document.querySelector('.time-now');
-let modeIcons = document.querySelectorAll('.mode');
+let datacurrentday = document.querySelector('.data-current-day');
+let darkMode = document.querySelector('.dark-mode');
+let lightMode = document.querySelector('.light-mode');
 let parenModeIcons = document.querySelectorAll('.icon-mode');
-// console.log(inputSearch);
 //* App Variables
 let spanCity = document.createElement('span');
 let curTime = document.createElement('p');
-
+let ampm = document.createElement('span');
+ampm.classList.add('fs-5', 'text-danger');
 spanCity.classList.add('fs-6', 'location-city');
-curTime.classList.add('fs-3', 'location-city', 'm-0', 'fw-bold');
+curTime.classList.add('fs-4', 'location-city', 'm-0', 'fw-bold');
 // //*
 //* Functions
 async function getCureentDay(country) {
@@ -28,14 +30,12 @@ function transformFirstChar(str) {
 }
 
 getCureentDay(transformFirstChar('cairo'));
+
 function dispalyDataWeather(obj) {
   allWeather.innerHTML = '';
   const apiDate = obj.location.localtime;
-
-  // تحويل السلسلة النصية إلى كائن تاريخ
   const date = new Date(apiDate);
 
-  // مصفوفة تحتوي على أسماء أيام الأسبوع
   const days = [
     'Sunday',
     'Monday',
@@ -49,11 +49,6 @@ function dispalyDataWeather(obj) {
   const dayName = days[date.getDay()];
   const hours = date.getHours();
   const minutes = date.getMinutes();
-  // console.log(dayName);
-  // console.log(dayOfMonth);
-  // console.log(hours);
-  // console.log(minutes);
-  // console.log(seconds);
 
   let currentDayWeather = `<div class="col-md-6 col-lg-3 data-current-day">
               <div class="card bg-dark text-white shadow-lg p-2">
@@ -102,7 +97,7 @@ function dispalyDataWeather(obj) {
       'Saturday',
     ];
     const dayName = days[date.getDay()];
-    let cardForcastday = `  <div class="col-md-6 col-lg-3 text-center">
+    let cardForcastday = `<div class="col-md-6 col-lg-3 text-center">
               <div class="card bg-dark text-white shadow-lg p-2 h-100">
                 <div class="title-weather  p-2">
                   <h5 class="day-current text-capitalize">${dayName}</h5>
@@ -123,8 +118,10 @@ function dispalyDataWeather(obj) {
   }
   spanCity.textContent = `${obj.location.country}, ${obj.location.region}`;
   curTime.textContent = `${hours}:${minutes}`;
+  ampm.textContent = `${hours <= 12 ? 'am' : 'pm'}`.toUpperCase();
   locationNow.appendChild(spanCity);
-  currentTime.appendChild(curTime);
+  currentTime.prepend(curTime);
+  curTime.after(ampm);
   // getDay() returns a number between 0 (Sunday) and 6 (Saturday)
   // Output: Wednesday
 }
@@ -140,19 +137,23 @@ inputSearch.addEventListener('input', function () {
   getCureentDay(transformFirstChar(inputSearch.value || 'cairo'));
 });
 
+//* Dark Mode
+
+darkMode.addEventListener('click', function (e) {
+  darkMode.parentElement.classList.add('d-none');
+  lightMode.parentElement.classList.remove('d-none');
+  document.body.classList.add('bg-black');
+  localStorage.setItem('mode', 'light');
+});
+
+lightMode.addEventListener('click', function (e) {
+  lightMode.parentElement.classList.add('d-none');
+  darkMode.parentElement.classList.remove('d-none');
+  document.body.classList.remove('bg-black');
+  localStorage.setItem('mode', 'dark');
+});
+
 // *** function changeColor(ele, currentClass, repalceClass) {
-//   for (let i = 0; i < ele.length; i++) {
-//     ele[i].classList.replace(`${currentClass}`, `${repalceClass}`);
-//   }
-// }
-// for (let i = 0; i < modeIcons.length; i++) {
-//   modeIcons[i].addEventListener('click', function (e) {
-//     e.stopPropagation();
-//     let classActiveMode = document.querySelector('.icon-mode .active');
-//     classActiveMode.classList.remove('active');
-//     e.target.parentElement.classList.add('active');
-//   });
-// }
 
 //* Events
 //* https://api.weatherapi.com/v1/current.json?key=3f2e331856f84a428f5191703240710&q=cairo
