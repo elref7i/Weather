@@ -23,6 +23,7 @@ async function getCureentDay(country) {
   );
   let data = await response.json();
   dispalyDataWeather(data);
+  getZone(data);
 }
 function transformFirstChar(str) {
   let nameCountry = str.charAt(0).toUpperCase() + str.slice(1, str.length);
@@ -50,6 +51,11 @@ function dispalyDataWeather(obj) {
   const hours = date.getHours();
   const minutes = date.getMinutes();
 
+  const latValue = obj.location.lat;
+  const lonValue = obj.location.lon;
+  const northSouth = latValue >= 0 ? 'North' : 'South';
+  const eastWest = lonValue >= 0 ? 'East' : 'West';
+
   let currentDayWeather = `<div class="col-md-6 col-lg-3 data-current-day">
               <div class="card bg-dark text-white shadow-lg p-2">
                 <div class="title-weather d-flex justify-content-between align-items-center p-2">
@@ -60,7 +66,7 @@ function dispalyDataWeather(obj) {
                 <div class="card-body bg-black p-3">
                   <h3 class="text-danger">${obj.location.name}</h3>
                   <div class="data-temp d-flex justify-content-between align-items-center">
-                    <h4 class="Temperature fs-1">${obj.current.dewpoint_c}<sup class="text-danger px-1">o</sup>C</h4>
+                    <h4 class="Temperature fs-1">${obj.current.temp_c}<sup class="text-danger px-1">o</sup>C</h4>
                     <div class="image-temperature">
                       <img src="${obj.current.condition.icon}" class="" alt="">
                     </div>
@@ -77,7 +83,7 @@ function dispalyDataWeather(obj) {
                     </article>
                     <article class="d-flex justify-content-center align-items-start gap-1 ">
                       <img src="https://routeweather.netlify.app/images/icon-compass.png" alt="">
-                      <h6>East</h6>
+                      <h6>${northSouth},${eastWest}</h6>
                     </article>
                   </div>
                 </div>
@@ -85,7 +91,7 @@ function dispalyDataWeather(obj) {
             </div>`;
   allWeather.innerHTML += currentDayWeather;
 
-  for (let i = 1; i <= 3; i++) {
+  for (let i = 1; i <= 4; i++) {
     const date = new Date(obj.forecast.forecastday[i].date); // Your input date
     const days = [
       'Sunday',
@@ -97,7 +103,7 @@ function dispalyDataWeather(obj) {
       'Saturday',
     ];
     const dayName = days[date.getDay()];
-    let cardForcastday = `<div class="col-md-6 col-lg-3 text-center">
+    let cardForcastday = `<div class="col-md-6 col-lg-2 text-center flex-grow-1">
               <div class="card bg-dark text-white shadow-lg p-2 h-100">
                 <div class="title-weather  p-2">
                   <h5 class="day-current text-capitalize">${dayName}</h5>
@@ -110,8 +116,8 @@ function dispalyDataWeather(obj) {
                     <h4 class="maxtemp mb-2">${obj.forecast.forecastday[i].day.maxtemp_c}<sup class="text-danger px-1">o</sup>C</h4>
                     <h5 class="min-temp h6 mb-3">${obj.forecast.forecastday[i].day.mintemp_c}<sup class="ps-1 text-danger">o</sup></h5>
                   </div>
-                  <h5 class="text-primary ">${obj.forecast.forecastday[i].day.condition.text}</h5>
-                </div>
+                  <h5 class="text-primary fs-6 text-text-nowrap">${obj.forecast.forecastday[i].day.condition.text}</h5>
+                </div> 
               </div>
             </div>`;
     allWeather.innerHTML += cardForcastday;
