@@ -72,10 +72,10 @@ function dispalyDataWeather(obj) {
                     </div>
                   </div>
                   <h5 class="text-primary ">${obj.current.condition.text}</h5>
-                  <div class="Percentage-of-heat | pt-3 d-flex align-items-center justify-content-between flex-wrap">
+                  <div class="Percentage-of-heat | pt-3 d-flex align-items-center justify-content-between flex-wrap ">
                     <article class="d-flex justify-content-center align-items-start gap-1 ">
                       <img src="https://routeweather.netlify.app/images/icon-umberella.png" alt="">
-                      <h6>18km/h</h6>
+                      <h6>20%</h6>
                     </article>
                     <article class="d-flex justify-content-center align-items-start gap-1 ">
                       <img src="https://routeweather.netlify.app/images/icon-wind.png" alt="">
@@ -83,7 +83,7 @@ function dispalyDataWeather(obj) {
                     </article>
                     <article class="d-flex justify-content-center align-items-start gap-1 ">
                       <img src="https://routeweather.netlify.app/images/icon-compass.png" alt="">
-                      <h6>${northSouth},${eastWest}</h6>
+                      <h6 class="fs-6">${northSouth},${eastWest}</h6>
                     </article>
                   </div>
                 </div>
