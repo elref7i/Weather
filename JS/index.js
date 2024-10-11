@@ -1,11 +1,12 @@
 'use strict';
 //* HTML element
 let allWeather = document.querySelector('.all-weather');
+let inputSearch = document.querySelector('.search');
 let locationNow = document.querySelector('.location-now');
 let currentTime = document.querySelector('.time-now');
 let modeIcons = document.querySelectorAll('.mode');
 let parenModeIcons = document.querySelectorAll('.icon-mode');
-
+// console.log(inputSearch);
 //* App Variables
 let spanCity = document.createElement('span');
 let curTime = document.createElement('p');
@@ -19,19 +20,16 @@ async function getCureentDay(country) {
     `https://api.weatherapi.com/v1/forecast.json?key=3f2e331856f84a428f5191703240710&q=${country}=07112&days=7`
   );
   let data = await response.json();
-  dispalyCureenweather(data);
-  displayforceObject(data);
-  console.log(data);
+  dispalyDataWeather(data);
 }
 function transformFirstChar(str) {
   let nameCountry = str.charAt(0).toUpperCase() + str.slice(1, str.length);
   return nameCountry;
 }
-console.log();
-getCureentDay(transformFirstChar('cairo'));
 
-console.log();
-function dispalyCureenweather(obj) {
+getCureentDay(transformFirstChar('cairo'));
+function dispalyDataWeather(obj) {
+  allWeather.innerHTML = '';
   const date = new Date(obj.current.last_updated); // Your input date
   const days = [
     'Sunday',
@@ -81,17 +79,12 @@ function dispalyCureenweather(obj) {
                 </div>
               </div>
             </div>`;
-
   allWeather.innerHTML += currentDayWeather;
   spanCity.textContent = `${obj.location.country}, ${obj.location.region}`;
   curTime.textContent = `${hours}:${minutes}:${seconds}`;
   locationNow.appendChild(spanCity);
   currentTime.appendChild(curTime);
 
-  // getDay() returns a number between 0 (Sunday) and 6 (Saturday)
-  // Output: Wednesday
-}
-function displayforceObject(obj) {
   for (let i = 1; i <= 3; i++) {
     const date = new Date(obj.forecast.forecastday[i].date); // Your input date
     const days = [
@@ -124,7 +117,18 @@ function displayforceObject(obj) {
             </div>`;
     allWeather.innerHTML += cardForcastday;
   }
+
+  // getDay() returns a number between 0 (Sunday) and 6 (Saturday)
+  // Output: Wednesday
 }
+
+inputSearch.addEventListener('input', function () {
+  getCureentDay(transformFirstChar(inputSearch.value));
+  if (inputSearch.value === '') {
+    getCureentDay(transformFirstChar('cairo'));
+  }
+});
+
 // *** function changeColor(ele, currentClass, repalceClass) {
 //   for (let i = 0; i < ele.length; i++) {
 //     ele[i].classList.replace(`${currentClass}`, `${repalceClass}`);
