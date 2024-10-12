@@ -35,7 +35,7 @@ a {
   flex: 1 0 100%;
 }
 .search {
-  caret-color: rgb(141, 60, 60);
+  caret-color: red;
 }
 .search:focus {
   box-shadow: none;
@@ -51,4 +51,26 @@ a {
   background-color: rgb(0, 0, 0);
   animation: cclock infinite 1.5s;
   position: relative;
+}
+.card {
+  min-height: 300px;
+}
+.nav {
+  box-shadow: 0px -8px 20px 0px #fff;
+  animation: flash 1s infinite linear;
+}
+.card {
+  box-shadow: 0px 0px 3px 0px #ffffffc0;
+}
+
+@keyframes flash {
+  0% {
+    box-shadow: 0px -8px 20px 0px #fff;
+  }
+  50% {
+    box-shadow: 0px -8px 20px 0px #ffffffb1;
+  }
+  100% {
+    box-shadow: 0px -8px 20px 0px #ffffff;
+  }
 }
