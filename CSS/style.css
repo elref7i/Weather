@@ -43,21 +43,13 @@ a {
 .search::placeholder {
   color: antiquewhite;
 }
-.circle-clock {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  text-align: center;
-  background-color: rgb(0, 0, 0);
-  animation: cclock infinite 1.5s;
-  position: relative;
-}
+
 .card {
   min-height: 300px;
 }
 .nav {
   box-shadow: 0px -8px 20px 0px #fff;
-  animation: flash 1s infinite linear;
+  animation: flash 6s infinite linear;
 }
 .card {
   box-shadow: 0px 0px 3px 0px #ffffffc0;
@@ -68,7 +60,7 @@ a {
     box-shadow: 0px -8px 20px 0px #fff;
   }
   50% {
-    box-shadow: 0px -8px 20px 0px #ffffffb1;
+    box-shadow: 0px -8px 20px 0px #f17f7fb1;
   }
   100% {
     box-shadow: 0px -8px 20px 0px #ffffff;
